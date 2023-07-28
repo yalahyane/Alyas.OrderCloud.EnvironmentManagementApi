@@ -24,6 +24,6 @@ Use this public Azure instance:  https://alyas-ordercloud-environmentmanagementa
 This runs on a Free Tier at the moment, so it might be slower than running it locally.
 
 # Option 2:
-Clone the repo and run the API locally from Visual Studio.
+Clone the repo and run the API locally from Visual Studio.  
 
-# P.S: Depending on the size of your marketplace, the Cloning can take some time. So keep it running and monitor that the environment is being populated from the OrderCloud Portal.
+**P.S:** Depending on the size of your marketplace, the Cloning can take some time. So keep it running and monitor that the environment is being populated from the OrderCloud Portal.
