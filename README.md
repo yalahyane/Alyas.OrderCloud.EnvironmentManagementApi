@@ -20,7 +20,10 @@ If you need to clone any entities not listed above, feel free to Clone the Repo 
 # How to Use
 
 # Option 1:  
-Use this publicly Deployed instance:  https://alyas-ordercloud-environmentmanagementapi.azurewebsites.net/swagger.
+Use this public Azure instance:  https://alyas-ordercloud-environmentmanagementapi.azurewebsites.net/swagger.
+This runs on a Free Tier at the moment, so it might be slower than running it locally.
 
 # Option 2:
 Clone the repo and run the API locally from Visual Studio.
+
+# P.S: Depending on the size of your marketplace, the Cloning can take some time. So keep it running and monitor that the environment is being populated from the OrderCloud Portal.
