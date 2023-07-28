@@ -249,7 +249,7 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
         private static async Task CloneCategories(string catalogId, IOrderCloudClient sourceClient, IOrderCloudClient destinationClient)
         {
             var pageNumber = 1;
-            var categories = await sourceClient.Categories.ListAsync(catalogId, page: pageNumber, pageSize: 100);
+            var categories = await sourceClient.Categories.ListAsync(catalogId, page: pageNumber, pageSize: 100, depth:"5");
             while (categories.Items.Any())
             {
                 pageNumber++;
@@ -264,7 +264,7 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
                         Log.Logger.Error($"Failed to create Category: {category.ID}. Exception: {e}");
                     }
                 }
-                categories = await sourceClient.Categories.ListAsync(catalogId, page: pageNumber, pageSize: 100);
+                categories = await sourceClient.Categories.ListAsync(catalogId, page: pageNumber, pageSize: 100, depth: "5");
             }
         }
 
@@ -333,7 +333,7 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
                     await CloneInventoryRecords(product.ID, sourceClient, destinationClient);
                     await CloneInventoryRecordsAssignments(product.ID, sourceClient, destinationClient);
                 }
-                products = await sourceClient.Products.ListAsync(page: pageNumber, pageSize: 100);
+                products = await sourceClient.Products.ListAsync(page: pageNumber, pageSize: 100, filters: new { IsParent = true });
             }
         }
 
@@ -358,7 +358,7 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
                     await CloneInventoryRecords(product.ID, sourceClient, destinationClient);
                     await CloneInventoryRecordsAssignments(product.ID, sourceClient, destinationClient);
                 }
-                products = await sourceClient.Products.ListAsync(page: pageNumber, pageSize: 100);
+                products = await sourceClient.Products.ListAsync(page: pageNumber, pageSize: 100, filters: new { IsParent = false });
             }
         }
 
