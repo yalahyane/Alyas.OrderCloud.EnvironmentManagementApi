@@ -14,5 +14,13 @@ The Admin User Id needs to be ignored during the cleanup for the environment to 
 -Buyers, Users, User Groups, Addresses, Cost Centers, Credit Cards, Spending Accounts.
 -Catalogs, Categories, Products, Price Schedules, Specs, Product Facets, Inventory Records.
 
-If you need to clone any entities not listed above, feel free to Clone the Repo and Add them.
+If you need to clone any entities not listed above, feel free to Clone the Repo and Add them.  
 
+
+# How to Use
+
+# Option 1:  
+Use this publicly Deployed instance:  https://alyas-ordercloud-environmentmanagementapi.azurewebsites.net/swagger.
+
+# Option 2:
+Clone the repo and run the API locally from Visual Studio.
