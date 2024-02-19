@@ -1,6 +1,6 @@
 ﻿namespace Alyas.OrderCloud.EnvironmentManagementApi.Models
 {
-    public class EnvCloneModel
+    public class CloneModel
     {
         public string SourceApiUrl { get; set; }
         public string SourceClientId { get; set; }

@@ -50,6 +50,30 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
             await DeleteAdminUserGroups(client);
         }
 
+        public static async Task CloneCatalog(this IOrderCloudClient sourceClient, IOrderCloudClient destinationClient)
+        {
+            await CloneParentProducts(sourceClient, destinationClient);
+            await CloneProducts(sourceClient, destinationClient);
+            await CloneCatalogs(sourceClient, destinationClient);
+            await ClonePriceSchedules(sourceClient, destinationClient);
+            await CloneSpecs(sourceClient, destinationClient);
+            await CloneProductsFacets(sourceClient, destinationClient);
+            await ClonePromotions(sourceClient, destinationClient);
+            await CloneCatalogsAssignments(sourceClient, destinationClient);
+        }
+
+
+        public static async Task CleanupCatalog(this IOrderCloudClient client)
+        {
+            await DeletePromotions(client);
+            await DeleteProductsFacets(client);
+            await DeleteSpecs(client);
+            await DeletePriceSchedules(client);
+            await DeleteCatalogs(client);
+            await DeleteProducts(client);
+            await DeleteParentProducts(client);
+        }
+
         private static async Task CloneAdminUserGroups(IOrderCloudClient sourceClient, IOrderCloudClient destinationClient)
         {
             var pageNumber = 1;
@@ -1266,6 +1290,15 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
             await CloneSpecProductAssignments(sourceClient, destinationClient);
             await CloneSecurityProfileAssignments(sourceClient, destinationClient);
             await CloneApiClientAssignments(sourceClient, destinationClient);
+            await ClonePromotionAssignments(sourceClient, destinationClient);
+        }
+
+        private static async Task CloneCatalogsAssignments(IOrderCloudClient sourceClient, IOrderCloudClient destinationClient)
+        {
+            await CloneCatalogAssignments(sourceClient, destinationClient);
+            await CloneCatalogProductAssignments(sourceClient, destinationClient);
+            await CloneProductAssignments(sourceClient, destinationClient);
+            await CloneSpecProductAssignments(sourceClient, destinationClient);
             await ClonePromotionAssignments(sourceClient, destinationClient);
         }
 
