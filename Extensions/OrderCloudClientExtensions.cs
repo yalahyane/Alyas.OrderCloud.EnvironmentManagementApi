@@ -259,6 +259,7 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
                 {
                     try
                     {
+                        await DeleteCategories(client, catalog.ID);
                         await client.Catalogs.DeleteAsync(catalog.ID);
                     }
                     catch (Exception e)
@@ -269,6 +270,32 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
                 catalogs = await client.Catalogs.ListAsync(pageSize: 100);
             }
         }
+
+        private static async Task DeleteCategories(IOrderCloudClient client, string catalogId)
+        {
+            var firstPass = true;
+            var categories = await client.Categories.ListAsync(catalogId, pageSize: 100);
+            var originalTotal = categories.Meta.TotalCount;
+
+            while (categories.Items.Any() && (firstPass || originalTotal > categories.Meta.TotalCount))
+            {
+                firstPass = false;
+                originalTotal = categories.Meta.TotalCount;
+                foreach (var category in categories.Items)
+                {
+                    try
+                    {
+                        await client.Categories.DeleteAsync(catalogId, category.ID);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Logger.Error($"Failed to delete Category: {category.ID}. Exception: {e}");
+                    }
+                }
+                categories = await client.Categories.ListAsync(catalogId, pageSize: 100);
+            }
+        }
+
 
         private static async Task CloneCategories(string catalogId, IOrderCloudClient sourceClient, IOrderCloudClient destinationClient)
         {
@@ -518,6 +545,7 @@ namespace Alyas.OrderCloud.EnvironmentManagementApi.Extensions
                     try
                     {
                         await client.PriceSchedules.DeleteAsync(priceSchedule.ID);
+                        Thread.Sleep(300);
                     }
                     catch (Exception e)
                     {
